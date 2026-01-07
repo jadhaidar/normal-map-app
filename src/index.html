@@ -1,0 +1,2849 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Primary Meta Tags -->
+    <title>Free Normal Map Editor - Best Pixel Art Normal Map Generator</title>
+    <meta
+      name="title"
+      content="Free Normal Map Editor - Best Pixel Art Normal Map Generator"
+    />
+    <meta
+      name="description"
+      content="Create stunning normal maps for pixel art and 2D games. Free, open-source browser-based editor with real-time lighting preview. No signup required. Works with Phaser, Unity, Godot, and more."
+    />
+    <meta
+      name="keywords"
+      content="normal map generator, pixel art normal map, 2D lighting, game development, texture editor, free normal map tool, phaser normal map, unity 2D lighting, godot normal map, webgl lighting, bump map generator"
+    />
+    <meta name="author" content="Jad Haidar" />
+    <meta name="robots" content="index, follow" />
+    <meta name="language" content="English" />
+    <meta name="revisit-after" content="7 days" />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://normalmap.app/" />
+    <meta
+      property="og:title"
+      content="Free Normal Map Editor - Best Pixel Art Normal Map Generator"
+    />
+    <meta
+      property="og:description"
+      content="Create stunning normal maps for pixel art and 2D games. Free, open-source browser-based editor with real-time lighting preview."
+    />
+    <meta property="og:image" content="https://normalmap.app/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:site_name" content="Normal Map App" />
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content="https://normalmap.app/" />
+    <meta
+      property="twitter:title"
+      content="Free Normal Map Editor - Best Pixel Art Normal Map Generator"
+    />
+    <meta
+      property="twitter:description"
+      content="Create stunning normal maps for pixel art and 2D games. Free, open-source browser-based editor with real-time lighting preview."
+    />
+    <meta
+      property="twitter:image"
+      content="https://normalmap.app/twitter-image.png"
+    />
+    <meta name="twitter:creator" content="@iamjaidaron" />
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://normalmap.app/" />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+
+    <!-- Theme Color -->
+    <meta name="theme-color" content="#1f2937" />
+    <meta name="msapplication-TileColor" content="#1f2937" />
+
+    <!-- License & Attribution -->
+    <meta name="license" content="MIT" />
+    <meta name="version" content="1.0.0" />
+    <link
+      rel="license"
+      href="https://github.com/jadhaidar/normal-map-app/blob/main/LICENSE"
+    />
+
+    <!-- Structured Data (JSON-LD) -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Normal Map App",
+        "applicationCategory": "DesignApplication",
+        "operatingSystem": "Any",
+        "description": "Free, open-source browser-based normal map editor for pixel art and 2D games with real-time lighting preview.",
+        "url": "https://normalmap.app/",
+        "author": {
+          "@type": "Person",
+          "name": "Jad Haidar",
+          "url": "https://jad.land"
+        },
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
+        },
+        "screenshot": "https://normalmap.app/og-image.png",
+        "softwareVersion": "1.0.0",
+        "aggregateRating": {
+          "@type": "AggregateRating",
+          "ratingValue": "5.0",
+          "ratingCount": "1"
+        },
+        "featureList": [
+          "Real-time normal map generation",
+          "Interactive lighting preview",
+          "Adjustable bevel and height parameters",
+          "Support for pixel art transparency",
+          "Export to PNG format",
+          "No registration required",
+          "Works offline after first load"
+        ]
+      }
+    </script>
+
+    <style>
+      /* ===========================
+         CSS Reset & Base Styles
+         =========================== */
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+      }
+
+      html {
+        line-height: 1.5;
+        -webkit-text-size-adjust: 100%;
+        -moz-tab-size: 4;
+        -o-tab-size: 4;
+        tab-size: 4;
+        font-family: ui-sans-serif, system-ui, sans-serif, Apple Color Emoji,
+          Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji;
+        font-feature-settings: normal;
+        font-variation-settings: normal;
+        -webkit-tap-highlight-color: transparent;
+      }
+      
+      body {
+        margin: 0;
+        line-height: inherit;
+      }
+
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6 {
+        font-size: inherit;
+        font-weight: inherit;
+        margin: 0;
+      }
+
+      p {
+        margin: 0;
+      }
+
+      button {
+        cursor: pointer;
+        font-family: inherit;
+        border: none;
+        padding: 0;
+        background: transparent;
+      }
+
+      button:disabled {
+        cursor: not-allowed;
+      }
+
+      input {
+        font-family: inherit;
+        margin: 0;
+        padding: 0;
+      }
+
+      ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+      }
+
+      svg {
+        display: block;
+      }
+
+      .text-black {
+        color: #000000;
+      }
+
+      /* ===========================
+         Layout & Body
+         =========================== */
+      body {
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+        background-color: #111827;
+        color: #f3f4f6;
+      }
+
+      .hidden {
+        display: none !important;
+      }
+
+      /* ===========================
+         Header
+         =========================== */
+      .header {
+        position: relative;
+        z-index: 10;
+        display: flex;
+        height: 90px;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-around;
+        border-bottom: 1px solid #374151;
+        background-color: #1f2937;
+        padding: 0.5rem;
+        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+      }
+
+      @media (min-width: 640px) {
+        .header {
+          height: 64px;
+          flex-direction: row;
+          justify-content: space-between;
+          padding: 1rem;
+          gap: 2rem;
+        }
+      }
+
+      .header__logo {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        margin-bottom: 0.25rem;
+        width: 200px;
+        height: 25px;
+      }
+
+      @media (min-width: 640px) {
+        .header__logo {
+          margin-bottom: 0;
+          width: 320px;
+          height: 40px;
+        }
+      }
+
+      .header__logo-icon {
+        width: 1.5rem;
+        height: 1.5rem;
+        color: #60a5fa;
+      }
+
+      .header__title {
+        font-size: 1.25rem;
+        font-weight: 700;
+        line-height: 1.2;
+        letter-spacing: 0.025em;
+      }
+
+      .header__title-accent {
+        color: #60a5fa;
+      }
+
+      .header__actions {
+        display: flex;
+        gap: 1rem;
+        flex-shrink: 0;
+      }
+
+      /* ===========================
+         Buttons
+         =========================== */
+      .btn {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        border-radius: 0.5rem;
+        padding: 0.5rem 1rem;
+        font-size: 0.875rem;
+        line-height: 1.25rem;
+        font-weight: 500;
+        color: white;
+        transition: background-color 150ms;
+      }
+
+      .btn:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
+
+      .btn--primary {
+        background-color: #2563eb;
+      }
+
+      .btn--primary:hover:not(:disabled) {
+        background-color: #3b82f6;
+      }
+
+      .btn--success {
+        background-color: #059669;
+      }
+
+      .btn--success:hover:not(:disabled) {
+        background-color: #10b981;
+      }
+
+      .btn__icon {
+        width: 1rem;
+        height: 1rem;
+        flex-shrink: 0;
+      }
+
+      .btn--icon-only {
+        width: 2.5rem;
+        height: 2.5rem;
+        border-radius: 9999px;
+        padding: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        background-color: rgba(59, 130, 246, 0.9);
+        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        transition: all 200ms;
+      }
+
+      .btn--icon-only:hover {
+        transform: scale(1.1);
+        background-color: #3b82f6;
+      }
+
+      .btn--icon-only:active {
+        transform: scale(0.95);
+      }
+
+      .btn--icon-only svg {
+        width: 1.5rem;
+        height: 1.5rem;
+      }
+
+      .btn--zoom {
+        display: flex;
+        align-items: center;
+        gap: 0.375rem;
+        border-radius: 0.375rem;
+        background-color: #374151;
+        padding: 0.375rem 0.75rem;
+        font-size: 0.75rem;
+        font-weight: 500;
+        color: white;
+        transition: background-color 150ms;
+      }
+
+      .btn--zoom:hover {
+        background-color: #4b5563;
+      }
+
+      .btn--zoom svg {
+        width: 1rem;
+        height: 1rem;
+      }
+
+      /* ===========================
+         Main Layout
+         =========================== */
+      .main {
+        display: flex;
+        flex: 1;
+        flex-direction: column-reverse;
+        overflow: hidden;
+        max-height: calc(100svh - 90px);
+      }
+
+      @media (min-width: 640px) {
+        .main {
+          max-height: calc(100svh - 64px);
+        }
+      }
+
+      @media (min-width: 768px) {
+        .main {
+          flex-direction: row;
+        }
+      }
+
+      /* ===========================
+         Sidebar (Controls Panel)
+         =========================== */
+      .sidebar {
+        position: relative;
+        z-index: 10;
+        display: flex;
+        width: 100%;
+        flex-direction: column;
+        gap: 1rem;
+        overflow-y: auto;
+        border-top: 1px solid #374151;
+        background-color: #1f2937;
+        padding: 1rem;
+        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+      }
+
+      @media (min-width: 640px) {
+        .sidebar {
+          gap: 1.5rem;
+          border-right: 1px solid #374151;
+          border-top: none;
+          padding: 1.5rem;
+        }
+      }
+
+      @media (min-width: 768px) {
+        .sidebar {
+          width: 15rem;
+        }
+      }
+
+      @media (min-width: 1024px) {
+        .sidebar {
+          width: 20rem;
+        }
+      }
+
+      /* ===========================
+         Form Controls
+         =========================== */
+      .control-group {
+        display: flex;
+        flex-direction: column;
+        gap: 1.25rem;
+      }
+
+      .control {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+      }
+
+      .control__header {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 0.5rem;
+      }
+
+      .control__label {
+        font-size: 0.875rem;
+        font-weight: 500;
+        color: #d1d5db;
+      }
+
+      .control__value {
+        font-family: monospace;
+        font-size: 0.75rem;
+        color: #60a5fa;
+      }
+
+      .control__input {
+        width: 100%;
+      }
+
+      .control__hint {
+        margin-top: 0.25rem;
+        font-size: 0.75rem;
+        color: #6b7280;
+      }
+
+      /* Range Slider Styling */
+      input[type="range"] {
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+        background: transparent;
+      }
+
+      input[type="range"]::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        height: 16px;
+        width: 16px;
+        border-radius: 50%;
+        background: #60a5fa;
+        cursor: pointer;
+        margin-top: -6px;
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+      }
+
+      input[type="range"]::-moz-range-thumb {
+        height: 16px;
+        width: 16px;
+        border-radius: 50%;
+        background: #60a5fa;
+        cursor: pointer;
+        border: none;
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+      }
+
+      input[type="range"]::-webkit-slider-runnable-track {
+        width: 100%;
+        height: 4px;
+        cursor: pointer;
+        background: #4b5563;
+        border-radius: 2px;
+      }
+
+      input[type="range"]::-moz-range-track {
+        width: 100%;
+        height: 4px;
+        cursor: pointer;
+        background: #4b5563;
+        border-radius: 2px;
+      }
+
+      /* Checkbox Styling */
+      input[type="checkbox"] {
+        height: 1rem;
+        width: 1rem;
+        border-radius: 0.25rem;
+        border: 1px solid #4b5563;
+        background-color: #374151;
+        color: #2563eb;
+        cursor: pointer;
+      }
+
+      input[type="checkbox"]:focus {
+        outline: 2px solid #2563eb;
+        outline-offset: 2px;
+      }
+
+      /* Color Input Styling */
+      input[type="color"] {
+        height: 2rem;
+        width: 4rem;
+        cursor: pointer;
+        border-radius: 0.25rem;
+        border: 1px solid #4b5563;
+        background-color: #1f2937;
+      }
+
+      .toggle-group {
+        border-top: 1px solid #374151;
+        border-bottom: 1px solid #374151;
+        padding: 1rem 0;
+      }
+
+      .toggle {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        cursor: pointer;
+        margin-bottom: 0.75rem;
+      }
+
+      .toggle:last-child {
+        margin-bottom: 0;
+      }
+
+      .toggle__label {
+        font-size: 0.875rem;
+        font-weight: 500;
+        color: #d1d5db;
+      }
+
+      /* ===========================
+         Lighting Controls Section
+         =========================== */
+      .lighting-panel {
+        border-radius: 0.75rem;
+        border: 1px solid #4b5563;
+        background-color: rgba(55, 65, 81, 0.5);
+        padding: 1rem;
+      }
+
+      .lighting-panel__title {
+        margin-bottom: 0.75rem;
+        font-size: 0.75rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        color: #9ca3af;
+      }
+
+      .lighting-panel__controls {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+      }
+
+      .control--color .control__header {
+        align-items: center;
+      }
+
+      /* ===========================
+         Canvas Area
+         =========================== */
+      .canvas-section {
+        position: relative;
+        display: flex;
+        min-height: 20rem;
+        flex: 1;
+        flex-direction: column;
+        overflow: hidden;
+        background-color: #000000;
+      }
+
+      /* Checkerboard background for transparency */
+      .canvas-section::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background-color: #1a1a1a;
+        background-image: linear-gradient(45deg, #262626 25%, transparent 25%),
+          linear-gradient(-45deg, #262626 25%, transparent 25%),
+          linear-gradient(45deg, transparent 75%, #262626 75%),
+          linear-gradient(-45deg, transparent 75%, #262626 75%);
+        background-size: 20px 20px;
+        background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
+      }
+
+      /* ===========================
+         View Toggle Tabs
+         =========================== */
+      .view-tabs {
+        position: absolute;
+        left: 50%;
+        top: 1rem;
+        z-index: 10;
+        display: flex;
+        min-width: 18rem;
+        transform: translateX(-50%);
+        border-radius: 0.5rem;
+        background-color: #111827;
+        padding: 0.25rem;
+      }
+
+      .view-tab {
+        flex: 1;
+        border-radius: 0.375rem;
+        padding: 0.375rem 0;
+        font-size: 0.75rem;
+        font-weight: 500;
+        line-height: 1rem;
+        color: #9ca3af;
+        transition: all 150ms;
+        background: transparent;
+      }
+
+      .view-tab:hover {
+        color: white;
+      }
+
+      .view-tab--active {
+        background-color: #2563eb;
+        color: white;
+        box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+      }
+
+      /* ===========================
+         Canvas Wrapper & Content
+         =========================== */
+      .canvas-wrapper {
+        position: relative;
+        display: flex;
+        flex: 1;
+        cursor: grab;
+        touch-action: none;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+        padding: 2rem;
+      }
+
+      .canvas-wrapper.panning {
+        cursor: grabbing;
+      }
+
+      .canvas-inner {
+        position: relative;
+        transform-origin: center;
+      }
+
+      .canvas-inner.hidden {
+        display: none;
+      }
+
+      .canvas {
+        image-rendering: pixelated;
+        image-rendering: -moz-crisp-edges;
+        image-rendering: crisp-edges;
+      }
+
+      /* ===========================
+         Empty State
+         =========================== */
+      .empty-state {
+        text-align: center;
+      }
+
+      .empty-state__icon-wrapper {
+        margin: 0 auto 1rem;
+        display: flex;
+        height: 5rem;
+        width: 5rem;
+        align-items: center;
+        justify-content: center;
+        border-radius: 9999px;
+        border: 2px dashed #4b5563;
+        background-color: #1f2937;
+      }
+
+      .empty-state__icon {
+        width: 1.875rem;
+        height: 1.875rem;
+        color: #6b7280;
+      }
+
+      .empty-state__title {
+        font-size: 1.25rem;
+        line-height: 1.75rem;
+        font-weight: 600;
+        color: #d1d5db;
+      }
+
+      .empty-state__description {
+        margin: 0.5rem auto 0;
+        max-width: 20rem;
+        font-size: 0.875rem;
+        line-height: 1.25rem;
+        color: #6b7280;
+      }
+
+      /* ===========================
+         Light Cursor & Anchor
+         =========================== */
+      .light-cursor {
+        pointer-events: none;
+        position: absolute;
+        transform: translate(-50%, -50%);
+        border-radius: 9999px;
+        background: white;
+        opacity: 0.4;
+        mix-blend-mode: overlay;
+        filter: blur(2rem);
+        width: 128px;
+        height: 128px;
+        background: radial-gradient(
+          circle,
+          rgba(255, 255, 255, 1) 0%,
+          rgba(255, 255, 255, 0) 70%
+        );
+      }
+
+      .light-cursor.hidden {
+        display: none;
+      }
+
+      .light-anchor {
+        position: absolute;
+        z-index: 10;
+        margin-left: -1rem;
+        margin-top: -1rem;
+        width: 2rem;
+        height: 2rem;
+        cursor: move;
+        align-items: center;
+        justify-content: center;
+        pointer-events: auto;
+      }
+
+      .light-anchor.hidden {
+        display: none;
+      }
+
+      .light-anchor svg {
+        flex-shrink: 0;
+        border-radius: 9999px;
+        background-color: white;
+        padding: 0.25rem;
+        color: black;
+        transition: all 150ms ease-out;
+      }
+
+      .light-anchor:hover svg {
+        transform: scale(1.1);
+      }
+
+      .light-anchor:active svg {
+        transform: scale(0.95);
+      }
+
+      /* ===========================
+         Help Button
+         =========================== */
+      .help-button {
+        position: absolute;
+        bottom: 1rem;
+        right: 1rem;
+        z-index: 20;
+      }
+
+      /* ===========================
+         Zoom Controls
+         =========================== */
+      .zoom-controls {
+        position: absolute;
+        bottom: 1rem;
+        left: 50%;
+        z-index: 20;
+        display: none;
+        align-items: center;
+        gap: 0.75rem;
+        transform: translateX(-50%);
+        border-radius: 0.5rem;
+        border: 1px solid #374151;
+        background-color: rgba(31, 41, 55, 0.95);
+        padding: 0.75rem 1rem;
+        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+        backdrop-filter: blur(4px);
+      }
+
+      .zoom-controls.active {
+        display: flex;
+      }
+
+      .zoom-controls__slider-group {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      .zoom-controls__icon {
+        width: 1.25rem;
+        height: 1.25rem;
+        color: #9ca3af;
+      }
+
+      .zoom-controls__slider {
+        width: 8rem;
+      }
+
+      .zoom-controls__display {
+        min-width: 4ch;
+        text-align: center;
+        font-family: monospace;
+        font-size: 0.875rem;
+        color: #60a5fa;
+      }
+
+      .zoom-fit-icon {
+        display: flex;
+        width: 0.85rem;
+        height: 0.85rem;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .zoom-fit-icon svg {
+        width: 0.85rem;
+        height: 0.85rem;
+      }
+
+      /* ===========================
+         Modal
+         =========================== */
+      .modal {
+        position: fixed;
+        inset: 0;
+        z-index: 1000;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        background-color: rgba(0, 0, 0, 0.8);
+        padding: 1rem;
+      }
+
+      .modal.active {
+        display: flex;
+      }
+
+      .modal__content {
+        display: flex;
+        max-height: 80vh;
+        max-width: 36rem;
+        flex-direction: column;
+        border-radius: 0.375rem;
+        background-color: #1f2937;
+        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+      }
+
+      .modal__header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        border-bottom: 1px solid #374151;
+        padding: 1.5rem;
+      }
+
+      .modal__title {
+        font-size: 1.25rem;
+        font-weight: 700;
+        color: white;
+      }
+
+      .modal__close {
+        display: flex;
+        width: 1.75rem;
+        height: 1.75rem;
+        align-items: center;
+        justify-content: center;
+        border-radius: 9999px;
+        background-color: #374151;
+        color: #9ca3af;
+        transition: all 150ms;
+      }
+
+      .modal__close:hover {
+        background-color: #4b5563;
+        color: white;
+      }
+
+      .modal__close svg {
+        width: 1.25rem;
+        height: 1.25rem;
+      }
+
+      .modal__body {
+        flex: 1;
+        overflow-y: auto;
+        padding: 1.5rem;
+      }
+
+      .modal__body h3 {
+        color: #60a5fa;
+        font-size: 1.125rem;
+        font-weight: 600;
+        margin-bottom: 0.75rem;
+      }
+
+      .modal__body p {
+        color: #d1d5db;
+        line-height: 1.6;
+        margin-bottom: 1rem;
+      }
+
+      .modal__body ul {
+        padding: 0;
+        margin: 0;
+      }
+
+      .modal__body li {
+        color: #d1d5db;
+        padding: 0.5rem 0;
+        display: flex;
+        align-items: flex-start;
+        gap: 0.5rem;
+      }
+
+      .shortcut {
+        display: inline-block;
+        background: #374151;
+        padding: 0.125rem 0.5rem;
+        border-radius: 0.25rem;
+        font-family: monospace;
+        font-size: 0.875rem;
+        color: #9ca3af;
+      }
+
+      .icon-wrapper {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        background: white;
+        border-radius: 50%;
+        padding: 0.25rem;
+        margin: 0 0.25rem;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Header -->
+    <header class="header">
+      <div class="header__logo">
+        <!-- Logo -->
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          version="1.2"
+          viewBox="0 0 800 100"
+        >
+          <defs>
+            <linearGradient id="P" gradientUnits="userSpaceOnUse" />
+            <linearGradient
+              id="g1"
+              x2="1"
+              gradientTransform="matrix(693 0 0 80 105 50)"
+              href="#P"
+            >
+              <stop stop-color="#60a5fa" />
+              <stop offset=".72" stop-color="#2563eb" />
+              <stop offset=".74" stop-color="#fff" />
+              <stop offset="1" stop-color="#fff" />
+            </linearGradient>
+            <image
+              id="img1"
+              width="96"
+              height="96"
+              href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGAAAABgCAYAAADimHc4AAAHhklEQVR4AeydDXLbNhCFIXfcHKv2NZLpjG5i+yaY6STXcHqs1NOw7y27FClTBLAACdChxhApCj+L9y0WEAUld+54VFXgAFBVfucOAAeAygpUbn53I+D819vD+dvbq6Sv/3RnJr7++uP5jFRZz+TmdwFgEB1iu7vu1XXdgyTtLl+705NDEiA7AtE8APFqFd3FPk5PewHRLADxeno8vDpW9vf52gfRHAARHjFdQs17RY1XAAJ1ymgy1rBWsWYATISXmF64y1InQDQ2PzQBQDwzOc5bAZ2ezght0qa1ioLlqgIQr4cYLivOO+ODo4HL2B/PxgqKFKsCQIRHTDbH+dPpu/t5evRffj8xOde9OF4zSQIQsKXWiNgUwER4ickGxSj85/tH/+f9dy3tv3x69rgmIPRiylFsAYgK88NmAMTDsuJ89+Lp8SPhrzX2BIE8ZhAIhVt/flgdgHh9TpxnaKHXQ9xrwW+93hOI1QCI8Iit2XEeoWUcbm6JPnedIGQ0EOJchuA1hCX0QUZvMK8tQ3EAE+ElthoMo8dnCD9ukRBanh+KAhBPWTnOj8VNORcQDc4PRQCI128c51PEH+dtDUQWABEeMbJmnB+Lm3JOEC3MD2YA/EJEhI+O81fyFIzzVzVHvySE2vNDMoDB663C41OrRyy2rmyi1U3I6LHE9bBJRkRCuUtWrJYQgqnN5VrcWRIAacA6yXIpSK9HZ+NM2z6Xh20+BwS0kYVIgunRAKRiNJBQd59VhS+0rOwrXffZA4SMBtqe3BRGA763ji0WDcDhY7pLfdDjdyT8uHuEYJ4fEhw1CoB4/9i64Hn4vk2wikYyCAhDWJJFSkQfogC4FO/HsKXR7oM9+j7htndsv7BIkTkzkD8IINn72TBXBBVu7Qb6an6bQvYeza0v5mpmCwYBzJaKuojJaOcQBuEZ0+FYUd0eZ/rNPY1fzp2HAZzu/pgrGHeNEOp/7Rdn6zSXjHyr8NOqFl+FAVjIv2tyPyDE6xFCXcq85248uu7hxjvD5TCAIWuJE4DAvSPxrhLVFaxDhIdtcnulYL2hqjYGAHNkRAFEI/PDRHixDTZu+FcAQMLSbNIxQqg7P8hIzIrz1r5fhMgGwPWxN3xQuZiwPYjB661xHp91+m0xn7L3FGUDUCF91v0T1kIQ6+7xH4S3er0KX/D2SjEAlJAQzPdPWIF4ZA9CXhZ6yhaedqx0X6soANrJJCAaCUsl4rxHX9b6/mIVAITA5BGWPIx3+BKGr9MTR4Ntoh68XkZVesuy1ZFejz4YSkcXWRWAWuGlE1gxMIbqxaQjQcTND4PwDcX5pa5uAoAGEMLa84PcMLMKTyPp8QUnWFYZSpsBUEMEROGwxDjPPZ3DD/e0sehjve8vNgegmhQDwdsHjcd57fPcsRoANYYg7JM0arHcPuBcVCHcwNp3f9UB0CJC8FlhibXEJoSbjeP8kmVNAFADPVZLfjUQEB51e7Sh7bVwbAqACkKRPMTKCk1amYabxoRX85oEoMZ5EQ2fH/RCylGFbyjczJnfNAAaTAg+eTQg3DQuPPvG1DwAGsnkMRq8gOCr24l5PPLeztHWO7sB0JZs5aw5AJTT0lRTQQCm9n/5QgeAyi5wADgAVFagcvPHCDgAVFagcvPHCDgAVFagcvPHCDgAVFagcvPHCMgEkFv8AJCrYGb5MAB+sbHQCDdCLbz9od/idpjFDga0Y9kwAOZaShE/RFsqvu/3Ar+a7H7+HepfGMC/7mWxkq574KaooDcsVrKvNznqZRdeAbPDAKIb6fdvRmffYcZB+MjtjzHfzAUByLbsiFjW60kItt3Mffl2n2WERwrf9yJuM0EQACvrN9XyLDZ9HBDi9YafrcZ4P9WMAsCM/E2UHJOeAOLb26t4T1K5+plFeNhu+9lqnPezl9EAJBRZfmiBSdo5gGjkZ6ku8JgIL7YHCly/zT2nCbsyogGwHRlWaIDn6YkQ2p4fZKQmxfmRCpwnoU3vqKPrgdMkAKyLDXjZnxM/zFjukgqAuFRW5Ey83hDnh8YhPudJajNcizxJBqD1ehlmgIDG9VraESAQY8Xr0goWyy3CwwZbnIcZ7Du9/vP9I16Z/swA2BohkLx5E63EWIDYeH6YCC82sDeJ6X/hLV4/bikLgFYkIHYSlmTEWeO8dLgL/jP6ki3yqQgAbatlEOL1mXGeS3H2Uftb4lgUgBrUG9nG/CDCF4rzueFG9RkfVwHABgih5vwwEb5ynKcet9JqALRBAbHx/NBanFct5o6rA9BGS4HQ+m4deWvc4ZO3szx0WSlLbEsF6WU2A6CmEYQsW9lZvVj7SFsKLStTu7I5ABpICFnzAysplSoJr+YnANAi5Y4CImt+yLGl7HreaklVAGr0piA03GwY57Wfc8cmAKhhBLHa/KDC477NGut57UPqsSkANJ4Qis8PleM8+3UrNQdADRUQ2fNDG3Fe+zR3bBaAGmsCoeGmkTivfZk7Ng9AjZ6CuLrPRMGZGGowahjCWorz2oe5424AqPE9iP6/r/UUm4kTK9PC/7Sq5Vs77g5AawLm2nMAyFUws/wBICDg2m//BwAA///6MxQPAAAABklEQVQDAOYSe/1VEywIAAAAAElFTkSuQmCC"
+            />
+          </defs>
+          <style>
+            .a {
+              fill: url(#g1);
+            }
+          </style>
+          <path
+            d="M105.8 74V26h9.6l4.8 4.8q8.9-6.2 19.2-6.2 6.8 0 10.6 2.9t3.8 8.1V74h-19.2V40.4h-3q-3.2 0-4.9.7t-1.7 3V74zm55.1-24q0-12.9 6-19.1 6-6.3 19.4-6.3 13.5 0 19.5 6.3 6 6.2 6 19.1t-6 19.2q-6 6.2-19.5 6.2-13.1 0-19.3-6.1-6.1-6.2-6.1-19.3m20.6-7.4v18.8h3q3.5 0 5-.7 1.6-.7 1.6-3.3V38.6h-2.9q-3.6 0-5.2.7-1.5.7-1.5 3.3M239 74h-19.2V26h9.6l5.3 5.4q5.7-5.3 14.2-6.8l1.1 18.1q-1.1 0-2.7.3-1.6.4-3.3.8-1.6.5-2.9 1.2-1.4.7-2.1 1.6zm62.9 0h-19.2V40.4h-3.9q-1.1.1-2 .6-.8.4-1.3 1.3t-.5 2.5V74h-19.2V26h9.6l4.3 4.4q5.9-5.9 15.4-5.9 9.4 0 13.7 3.9 6-3.9 13.6-3.9 7.8 0 12 3 4.4 2.9 4.4 8.1V74h-19.2V40.4H306q-1.2.1-2 .5-.8.3-1.5 1.1-.5.8-.6 2.2zm58.6-49.4q23.1 0 23.1 15.8V74H374l-5.5-5.4q-1.4 1.6-3.4 2.8-1.9 1.3-4.2 2.2-2.2.9-4.5 1.4-2.4.4-4.5.4-4.1 0-7.4-.8-3.2-.8-5.4-2.7-2.3-1.8-3.5-4.9-1.2-3-1.2-7.4 0-17.3 26.1-17.3h3.9v-3.4q-1.6-.1-2.8-.2t-2.3-.1q-10.8 0-18.6 2.7l-2.3-13.8q9.6-2.9 22.1-2.9m-6.7 32.9v3.9h4q4.2 0 5.4-.9 1.2-1.1 1.2-2.5v-4.6h-4q-3.4 0-5 .8-1.6.7-1.6 3.3m38 7.5V11.6l19.2-1.4v50q1.5.4 2.7.5 1.2.2 2 .3l-.9 14q-12.2 0-16.2-1.4-3.4-1.2-5.1-3.1t-1.7-5.5m76.1 9h-19.2V40.4h-1.4q-1.3 0-2.5.1-1.1.1-2 .5-.8.4-1.3 1.3t-.5 2.5V74h-19.2V26h9.6l4.3 4.4q5.9-5.8 15.4-5.8 9.4 0 13.7 3.9 6-3.9 13.6-3.9 7.8 0 12 2.9 4.4 2.9 4.4 8.1V74h-19.2V40.4h-1.4q-1.1 0-2.2.1-1.2.1-2 .5-.8.3-1.5 1.1-.5.8-.6 2.1zm58.6-49.4q23.1 0 23.1 15.8V74H540l-5.5-5.4q-1.4 1.6-3.4 2.9-1.9 1.3-4.2 2.1-2.2.9-4.5 1.4-2.4.5-4.5.5-4.1 0-7.4-.8-3.2-.9-5.4-2.7-2.3-1.9-3.5-4.9-1.2-3.1-1.2-7.5 0-17.2 26.1-17.2h3.9v-3.5q-1.6-.1-2.8-.1-1.2-.1-2.3-.1-10.8 0-18.6 2.6l-2.3-13.7q9.6-3 22.1-3m-6.7 33v3.9h4q4.2 0 5.4-1t1.2-2.5v-4.5h-4q-3.4 0-5 .7t-1.6 3.4M577 88.4l-19.2 1.5V26h9.6l3.5 4.8q4.3-6.2 15.7-6.2 5.8 0 9.7 2.1t6.3 5.6q2.5 3.4 3.5 8.1 1.1 4.6 1.1 9.6 0 4.9-.9 9.2-1 4.4-3.2 7.7-2.3 3.3-5.9 5.2-3.7 1.9-9.2 1.9h-11zm0-46.2v19.3h3q3.5 0 5-.7 1.6-.8 1.6-3.4V38.6h-3q-2 0-3.3.2-1.3.1-2.3 1-.9.8-1 2.4M620.7 59.8q3.2 0 5.3 2 2.2 2.1 2.2 5.5 0 3.3-2.2 5.4-2.1 2.1-5.3 2.1t-5.3-2.2q-2.2-2.1-2.2-5.3 0-3.4 2.2-5.5 2.1-2 5.3-2m38.8-35.2q23.1 0 23.1 15.8V74H673l-5.5-5.4q-1.4 1.6-3.4 2.8-1.9 1.3-4.2 2.2-2.2.9-4.5 1.4-2.4.4-4.5.4-4.1 0-7.4-.8-3.2-.8-5.4-2.7-2.3-1.8-3.5-4.9-1.2-3-1.2-7.4 0-17.3 26.1-17.3h3.9v-3.4q-1.6-.1-2.8-.2t-2.3-.1q-10.8 0-18.6 2.7l-2.3-13.8q9.6-2.9 22.1-2.9m-6.7 32.9v3.9h4q4.2 0 5.4-.9 1.2-1.1 1.2-2.5v-4.6h-4q-3.4 0-5 .8-1.6.7-1.6 3.3M710 88.4l-19.2 1.4V26h9.6l3.5 4.8q4.3-6.2 15.7-6.2 5.8 0 9.7 2 3.9 2.1 6.3 5.6 2.5 3.5 3.5 8.1 1.1 4.7 1.1 9.7 0 4.9-.9 9.2-1 4.3-3.2 7.7-2.3 3.3-5.9 5.2-3.7 1.9-9.2 1.9h-11zm0-46.2v19.2h3q3.5 0 5-.7 1.6-.7 1.6-3.3V38.6h-3q-2 0-3.3.1-1.3.2-2.3 1.1-.9.8-1 2.4m57 46.2-19.2 1.4V26h9.6l3.5 4.8q4.3-6.2 15.7-6.2 5.8 0 9.7 2 3.9 2.1 6.3 5.6 2.5 3.5 3.5 8.1 1.1 4.7 1.1 9.7 0 4.9-.9 9.2-1 4.3-3.2 7.7-2.3 3.3-5.9 5.2-3.7 1.9-9.2 1.9h-11zm0-46.2v19.2h3q3.5 0 5-.7 1.6-.7 1.6-3.3V38.6h-3q-2 0-3.3.1-1.3.2-2.3 1.1-.9.8-1 2.4"
+            class="a"
+          />
+          <use href="#img1" transform="matrix(.9 0 0 .9 -5.2 6.8)" />
+        </svg>
+        <!-- <h1 class="header__title">
+          <span class="header__title-accent">normalmap</span>.app
+        </h1> -->
+      </div>
+      <div class="header__actions">
+        <button
+          onclick="document.getElementById('fileInput').click()"
+          class="btn btn--primary"
+          aria-label="Load image file"
+        >
+          <!-- Upload Icon -->
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            fill="none"
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            class="btn__icon"
+            viewBox="0 0 24 24"
+            aria-hidden="true"
+          >
+            <path
+              d="M10.3 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v10l-3.1-3.1a2 2 0 0 0-2.814.014L6 21"
+            />
+            <path d="m14 19.5 3-3 3 3M17 22v-5.5" />
+            <circle cx="9" cy="9" r="2" />
+          </svg>
+          Load Image
+        </button>
+        <button
+          id="downloadBtn"
+          class="btn btn--success"
+          disabled
+          aria-label="Save normal map"
+        >
+          <!-- Download Icon -->
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            fill="none"
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            class="btn__icon"
+            viewBox="0 0 24 24"
+            aria-hidden="true"
+          >
+            <path d="M12 2v8M16 6l-4 4-4-4" />
+            <rect width="20" height="8" x="2" y="14" rx="2" />
+            <path d="M6 18h.01M10 18h.01" />
+          </svg>
+          Save Normal Map
+        </button>
+      </div>
+      <input
+        type="file"
+        id="fileInput"
+        class="hidden"
+        accept="image/*"
+        aria-label="File upload input"
+      />
+    </header>
+
+    <!-- Main Content -->
+    <main class="main">
+      <!-- Controls Panel (Left) -->
+      <aside class="sidebar" role="complementary" aria-label="Control panel">
+        <!-- Sliders -->
+        <div class="control-group">
+          <!-- Bevel Section -->
+          <div class="control">
+            <div class="control__header">
+              <label for="param-bevel" class="control__label"
+                >Bevel Width</label
+              >
+              <span id="val-bevel" class="control__value" aria-live="polite"
+                >4px</span
+              >
+            </div>
+            <input
+              type="range"
+              id="param-bevel"
+              min="0"
+              max="50"
+              value="4"
+              class="control__input"
+              aria-label="Bevel width"
+            />
+            <p class="control__hint">Distance from edge to flat top.</p>
+          </div>
+
+          <!-- Strength Section -->
+          <div class="control">
+            <div class="control__header">
+              <label for="param-strength" class="control__label"
+                >Height Strength</label
+              >
+              <span id="val-strength" class="control__value" aria-live="polite"
+                >2.5</span
+              >
+            </div>
+            <input
+              type="range"
+              id="param-strength"
+              min="0.1"
+              max="10"
+              step="0.1"
+              value="2.5"
+              class="control__input"
+              aria-label="Height strength"
+            />
+            <p class="control__hint">Intensity of the slope.</p>
+          </div>
+
+          <!-- Smoothness Section -->
+          <div class="control">
+            <div class="control__header">
+              <label for="param-smooth" class="control__label"
+                >Smoothness</label
+              >
+              <span id="val-smooth" class="control__value" aria-live="polite"
+                >1.0</span
+              >
+            </div>
+            <input
+              type="range"
+              id="param-smooth"
+              min="0"
+              max="10"
+              step="0.5"
+              value="1.0"
+              class="control__input"
+              aria-label="Smoothness"
+            />
+            <p class="control__hint">Blur strength for height map.</p>
+          </div>
+
+          <!-- Detail Section -->
+          <div class="control">
+            <div class="control__header">
+              <label for="param-detail" class="control__label"
+                >Detail Weight</label
+              >
+              <span id="val-detail" class="control__value" aria-live="polite"
+                >0.2</span
+              >
+            </div>
+            <input
+              type="range"
+              id="param-detail"
+              min="0"
+              max="1"
+              step="0.05"
+              value="0.2"
+              class="control__input"
+              aria-label="Detail weight"
+            />
+            <p class="control__hint">Mixes original colors into height map.</p>
+          </div>
+
+          <!-- Toggles -->
+          <div class="toggle-group">
+            <label class="toggle">
+              <span class="toggle__label">Flip Horizontal</span>
+              <input
+                type="checkbox"
+                id="param-invert-x"
+                aria-label="Flip horizontal"
+              />
+            </label>
+            <label class="toggle">
+              <span class="toggle__label">Flip Vertical</span>
+              <input
+                type="checkbox"
+                id="param-invert-y"
+                aria-label="Flip vertical"
+              />
+            </label>
+          </div>
+        </div>
+
+        <!-- Lighting Controls -->
+        <div class="lighting-panel">
+          <h3 class="lighting-panel__title">Lighting (Lit 3D Mode)</h3>
+          <div class="lighting-panel__controls">
+            <!-- Light Height -->
+            <div class="control">
+              <div class="control__header">
+                <label for="param-light-z" class="control__label"
+                  >Light Height (Z)</label
+                >
+                <span id="val-light-z" class="control__value" aria-live="polite"
+                  >100</span
+                >
+              </div>
+              <input
+                type="range"
+                id="param-light-z"
+                min="10"
+                max="500"
+                value="100"
+                class="control__input"
+                aria-label="Light height"
+              />
+              <p class="control__hint">Distance of light above surface.</p>
+            </div>
+
+            <!-- Brightness -->
+            <div class="control">
+              <div class="control__header">
+                <label for="param-brightness" class="control__label"
+                  >Brightness</label
+                >
+                <span
+                  id="val-brightness"
+                  class="control__value"
+                  aria-live="polite"
+                  >1.0</span
+                >
+              </div>
+              <input
+                type="range"
+                id="param-brightness"
+                min="0.1"
+                max="3"
+                step="0.1"
+                value="1.0"
+                class="control__input"
+                aria-label="Brightness"
+              />
+              <p class="control__hint">Overall light intensity.</p>
+            </div>
+
+            <!-- Light Size -->
+            <div class="control">
+              <div class="control__header">
+                <label for="param-light-size" class="control__label"
+                  >Light Size</label
+                >
+                <span
+                  id="val-light-size"
+                  class="control__value"
+                  aria-live="polite"
+                  >128px</span
+                >
+              </div>
+              <input
+                type="range"
+                id="param-light-size"
+                min="32"
+                max="512"
+                value="128"
+                class="control__input"
+                aria-label="Light size"
+              />
+              <p class="control__hint">
+                Controls light falloff. Larger = softer spread.
+              </p>
+            </div>
+
+            <!-- Light Color -->
+            <div class="control control--color">
+              <div class="control__header">
+                <label for="param-light-color" class="control__label"
+                  >Light Color</label
+                >
+                <input
+                  type="color"
+                  id="param-light-color"
+                  value="#ffffff"
+                  aria-label="Light color"
+                />
+              </div>
+            </div>
+
+            <!-- Ambient Color -->
+            <div class="control control--color">
+              <div class="control__header">
+                <label for="param-ambient-color" class="control__label"
+                  >Ambient Color</label
+                >
+                <input
+                  type="color"
+                  id="param-ambient-color"
+                  value="#4a4a4a"
+                  aria-label="Ambient color"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </aside>
+
+      <!-- Canvas Area (Right) -->
+      <section class="canvas-section" role="main">
+        <!-- View Toggles -->
+        <div class="view-tabs" role="tablist" aria-label="View modes">
+          <button
+            class="view-tab view-toggle"
+            data-mode="original"
+            role="tab"
+            aria-selected="false"
+            aria-controls="canvas-view"
+          >
+            Original
+          </button>
+          <button
+            class="view-tab view-tab--active view-toggle"
+            data-mode="normal"
+            role="tab"
+            aria-selected="true"
+            aria-controls="canvas-view"
+          >
+            Normal
+          </button>
+          <button
+            class="view-tab view-toggle"
+            data-mode="light"
+            role="tab"
+            aria-selected="false"
+            aria-controls="canvas-view"
+          >
+            Lit 3D
+          </button>
+        </div>
+
+        <!-- Canvas Wrapper with Zoom -->
+        <div
+          id="canvasWrapper"
+          class="canvas-wrapper"
+          role="tabpanel"
+          aria-labelledby="canvas-view"
+        >
+          <div id="emptyState" class="empty-state">
+            <div class="empty-state__icon-wrapper">
+              <!-- Image Icon -->
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="30"
+                height="30"
+                fill="none"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                class="empty-state__icon"
+                viewBox="0 0 24 24"
+                aria-hidden="true"
+              >
+                <rect width="18" height="18" x="3" y="3" rx="2" ry="2" />
+                <circle cx="9" cy="9" r="2" />
+                <path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21" />
+              </svg>
+            </div>
+            <h2 class="empty-state__title">No Image Loaded</h2>
+            <p class="empty-state__description">
+              Upload a pixel art PNG with transparency to start generating maps.
+            </p>
+          </div>
+
+          <div id="canvasInner" class="canvas-inner hidden">
+            <canvas
+              id="mainCanvas"
+              class="canvas"
+              role="img"
+              aria-label="Normal map canvas"
+            ></canvas>
+            <!-- Light cursor for preview mode -->
+            <div
+              id="lightCursor"
+              class="light-cursor hidden"
+              style="
+                width: 128px;
+                height: 128px;
+                background: radial-gradient(
+                  circle,
+                  rgba(255, 255, 255, 1) 0%,
+                  rgba(255, 255, 255, 0) 70%
+                );
+              "
+              aria-hidden="true"
+            ></div>
+            <!-- Light anchor (draggable sun icon) -->
+            <div
+              id="lightAnchor"
+              class="light-anchor hidden"
+              role="button"
+              aria-label="Drag to position light source"
+              tabindex="0"
+            >
+              <!-- Sun Icon -->
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                fill="none"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+                aria-hidden="true"
+              >
+                <circle cx="12" cy="12" r="4" />
+                <path
+                  d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"
+                />
+              </svg>
+            </div>
+          </div>
+        </div>
+
+        <!-- Help Button -->
+        <button
+          id="helpButton"
+          class="btn--icon-only help-button"
+          title="About"
+          aria-label="Open help and information modal"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            <circle cx="12" cy="12" r="10" />
+            <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3" />
+            <path d="M12 17h.01" />
+          </svg>
+        </button>
+
+        <!-- Zoom Controls -->
+        <div
+          id="zoomControls"
+          class="zoom-controls"
+          role="toolbar"
+          aria-label="Zoom controls"
+        >
+          <button
+            id="zoomFit"
+            class="btn--zoom"
+            title="Fit to container"
+            aria-label="Fit canvas to container"
+          >
+            <span id="zoomFitIcon" class="zoom-fit-icon" aria-hidden="true">
+              <!-- Shrink Icon -->
+            </span>
+            Fit
+          </button>
+          <button
+            id="zoom100"
+            class="btn--zoom"
+            title="100% zoom"
+            aria-label="Reset zoom to 100%"
+          >
+            <!-- Fullscreen Icon -->
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              viewBox="0 0 24 24"
+              aria-hidden="true"
+            >
+              <path
+                d="M3 7V5a2 2 0 0 1 2-2h2M17 3h2a2 2 0 0 1 2 2v2M21 17v2a2 2 0 0 1-2 2h-2M7 21H5a2 2 0 0 1-2-2v-2"
+              />
+              <rect width="10" height="8" x="7" y="8" rx="1" />
+            </svg>
+            100%
+          </button>
+          <div class="zoom-controls__slider-group">
+            <!-- Zoom Out Icon -->
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              class="zoom-controls__icon"
+              viewBox="0 0 24 24"
+              aria-hidden="true"
+            >
+              <circle cx="11" cy="11" r="8" />
+              <path d="m21 21-4.35-4.35M8 11h6" />
+            </svg>
+            <input
+              type="range"
+              id="zoomSlider"
+              min="10"
+              max="500"
+              value="100"
+              class="zoom-controls__slider"
+              title="Zoom level"
+              aria-label="Zoom level slider"
+            />
+            <!-- Zoom In Icon -->
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              class="zoom-controls__icon"
+              viewBox="0 0 24 24"
+              aria-hidden="true"
+            >
+              <circle cx="11" cy="11" r="8" />
+              <path d="m21 21-4.35-4.35M11 8v6M8 11h6" />
+            </svg>
+          </div>
+          <span
+            id="zoomDisplay"
+            class="zoom-controls__display"
+            aria-live="polite"
+            >100%</span
+          >
+        </div>
+      </section>
+    </main>
+
+    <!-- Help Modal -->
+    <div
+      id="helpModal"
+      class="modal"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="modal-title"
+    >
+      <div class="modal__content">
+        <div class="modal__header">
+          <h2 id="modal-title" class="modal__title">Normal Map App Guide</h2>
+          <button
+            class="modal__close"
+            onclick="closeHelpModal()"
+            aria-label="Close help modal"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="20"
+              height="20"
+              fill="none"
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              viewBox="0 0 24 24"
+              aria-hidden="true"
+            >
+              <path d="M18 6 6 18M6 6l12 12" />
+            </svg>
+          </button>
+        </div>
+        <div class="modal__body">
+          <h3>What are Normal Maps?</h3>
+          <p>
+            Normal maps are textures that store surface direction information
+            (normals) to simulate detailed 3D geometry on flat surfaces. Each
+            pixel's RGB values represent the X, Y, and Z components of the
+            surface normal at that point, creating the illusion of depth and
+            detail when lit.
+          </p>
+
+          <h3>How to Use This Editor</h3>
+          <p>
+            <strong>1. Load an Image:</strong> Upload a pixel art PNG with
+            transparency. The editor analyzes the image's alpha channel and
+            luminance to generate height information.
+          </p>
+          <p>
+            <strong>2. Adjust Parameters:</strong> Use the sliders to control
+            the bevel shape, height intensity, smoothness, and detail from the
+            original colors.
+          </p>
+          <p>
+            <strong>3. Preview Lighting:</strong> Switch to "Lit 3D" mode to see
+            how your normal map responds to dynamic lighting. Click or drag to
+            position the light source.
+          </p>
+          <p>
+            <strong>4. Export:</strong> Download the generated normal map for
+            use in your game engine or 3D application.
+          </p>
+
+          <h3>Controls</h3>
+          <ul>
+            <li>
+              <div>
+                <strong>Pan:</strong> Drag the canvas or scroll with mouse wheel
+              </div>
+            </li>
+            <li>
+              <div>
+                <strong>Zoom:</strong> Hold
+                <span class="shortcut">⌘</span>/<span class="shortcut"
+                  >Ctrl</span
+                >
+                + scroll
+              </div>
+            </li>
+            <li>
+              <div>
+                <strong>Lit 3D Mode:</strong> Click to place the
+                <span class="icon-wrapper text-black">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    class="text-black"
+                    viewBox="0 0 24 24"
+                    aria-hidden="true"
+                  >
+                    <circle cx="12" cy="12" r="4" />
+                    <path
+                      d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"
+                    />
+                  </svg>
+                </span>
+                light source, or drag it to move
+              </div>
+            </li>
+            <li>
+              <div>
+                <strong>Undo/Redo:</strong>
+                <span class="shortcut">⌘/Ctrl + Z</span> to undo,
+                <span class="shortcut">⌘/Ctrl + Shift + Z</span> or
+                <span class="shortcut">Ctrl + Y</span> to redo
+              </div>
+            </li>
+          </ul>
+
+          <h3>Parameters Explained</h3>
+          <p>
+            <strong>Bevel Width:</strong> Controls the width of the edge slope
+            (bevel). Higher values create a wider, more gradual slope from the
+            edge inward, resulting in a smaller flat center (or no flat area at
+            all for high values).
+          </p>
+          <p>
+            <strong>Height Strength:</strong> Adjusts the intensity of the
+            normal map slopes. Higher values create more dramatic lighting
+            effects.
+          </p>
+          <p>
+            <strong>Smoothness:</strong> Applies blur to the height map before
+            generating normals, creating softer, more gradual transitions.
+          </p>
+          <p>
+            <strong>Detail Weight:</strong> Blends the original image's
+            luminance into the height map, preserving color-based details.
+          </p>
+          <p>
+            <strong>Flip Horizontal/Vertical:</strong> Inverts the normal map
+            direction. Use these if lighting appears from the wrong direction in
+            your engine.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // --- State & Config ---
+      const state = {
+        srcImage: null,
+        originalImageData: null,
+        heightMap: null,
+        normalMapImageData: null,
+        originalFilename: null,
+        viewMode: "normal",
+        params: {
+          bevel: 4,
+          strength: 2.5,
+          smooth: 1.0,
+          detail: 0.2,
+          invertX: false,
+          invertY: false,
+        },
+        lighting: {
+          zPosition: 100,
+          brightness: 1.0,
+          size: 128,
+          lightColor: "#ffffff",
+          ambientColor: "#4a4a4a",
+          anchorX: 0,
+          anchorY: 0,
+        },
+        zoom: {
+          scale: 1,
+          offsetX: 0,
+          offsetY: 0,
+        },
+        history: {
+          past: [],
+          future: [],
+          max: 100,
+          justPushed: false,
+        },
+        isDirty: false,
+        isRestoringState: false,
+        gesture: {
+          isMouseDown: false,
+          isPanning: false,
+          isDraggingAnchor: false,
+          startX: 0,
+          startY: 0,
+          initialOffsetX: 0,
+          initialOffsetY: 0,
+          movedDistance: 0,
+          isTouching: false,
+          touchStartTime: 0,
+        },
+      };
+
+      // --- DOM Elements ---
+      const canvas = document.getElementById("mainCanvas");
+      const ctx = canvas.getContext("2d", { willReadFrequently: true });
+      const fileInput = document.getElementById("fileInput");
+      const canvasWrapper = document.getElementById("canvasWrapper");
+      const canvasInner = document.getElementById("canvasInner");
+      const emptyState = document.getElementById("emptyState");
+      const lightCursor = document.getElementById("lightCursor");
+      const lightAnchor = document.getElementById("lightAnchor");
+      const downloadBtn = document.getElementById("downloadBtn");
+      const zoomControls = document.getElementById("zoomControls");
+      const zoomSlider = document.getElementById("zoomSlider");
+      const zoomDisplay = document.getElementById("zoomDisplay");
+      const zoomFitBtn = document.getElementById("zoomFit");
+      const zoom100Btn = document.getElementById("zoom100");
+      const zoomFitIcon = document.getElementById("zoomFitIcon");
+
+      const shrinkIconSVG = `
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="size-[0.85rem]" viewBox="0 0 24 24"><path d="m15 15 6 6m-6-6v4.8m0-4.8h4.8M9 19.8V15m0 0H4.2M9 15l-6 6M15 4.2V9m0 0h4.8M15 9l6-6M9 4.2V9m0 0H4.2M9 9 3 3"/></svg>
+      `;
+
+      const expandIconSVG = `
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="size-[0.85rem]" viewBox="0 0 24 24"><path d="m15 15 6 6M15 9l6-6M21 16v5h-5M21 8V3h-5M3 16v5h5M3 21l6-6M3 8V3h5M9 9 3 3"/></svg>
+      `;
+
+      // --- History Helpers ---
+      function snapshotState() {
+        return {
+          params: { ...state.params },
+          lighting: { ...state.lighting },
+          viewMode: state.viewMode,
+          zoom: { ...state.zoom },
+        };
+      }
+
+      function resetHistory() {
+        state.history.past = [];
+        state.history.future = [];
+        state.history.justPushed = false;
+        if (state.srcImage) {
+          state.history.past.push(snapshotState());
+        }
+        state.isDirty = false;
+      }
+
+      function pushHistory() {
+        if (state.isRestoringState || !state.srcImage) return;
+        const snap = snapshotState();
+        const last = state.history.past[state.history.past.length - 1];
+        const same = last && JSON.stringify(last) === JSON.stringify(snap);
+        if (same) return;
+
+        state.history.past.push(snap);
+        if (state.history.past.length > state.history.max) {
+          state.history.past.shift();
+        }
+        state.history.future = [];
+        state.history.justPushed = true;
+        state.isDirty = state.history.past.length > 1;
+        setTimeout(() => {
+          state.history.justPushed = false;
+        }, 200);
+      }
+
+      function ensureHistory() {
+        if (!state.history.justPushed) {
+          pushHistory();
+        }
+      }
+
+      function applyStateToUI() {
+        const setVal = (id, val, suffix = "") => {
+          const el = document.getElementById("param-" + id);
+          const display = document.getElementById("val-" + id);
+          if (el) el.value = val;
+          if (display)
+            display.innerText =
+              typeof val === "boolean" ? "" : `${val}${suffix}`;
+        };
+
+        setVal("bevel", state.params.bevel, "px");
+        setVal("strength", state.params.strength);
+        setVal("smooth", state.params.smooth);
+        setVal("detail", state.params.detail);
+
+        const invertXEl = document.getElementById("param-invert-x");
+        const invertYEl = document.getElementById("param-invert-y");
+        if (invertXEl) invertXEl.checked = state.params.invertX;
+        if (invertYEl) invertYEl.checked = state.params.invertY;
+
+        setVal("light-z", state.lighting.zPosition);
+        setVal("brightness", state.lighting.brightness);
+        setVal("light-size", state.lighting.size, "px");
+
+        const lightColorEl = document.getElementById("param-light-color");
+        const ambientColorEl = document.getElementById("param-ambient-color");
+        if (lightColorEl) lightColorEl.value = state.lighting.lightColor;
+        if (ambientColorEl) ambientColorEl.value = state.lighting.ambientColor;
+
+        zoomSlider.value = state.zoom.scale * 100;
+        zoomDisplay.textContent = Math.round(state.zoom.scale * 100) + "%";
+        applyZoomTransform();
+
+        document.querySelectorAll(".view-toggle").forEach((b) => {
+          b.classList.remove("view-tab--active");
+          if (b.dataset.mode === state.viewMode) {
+            b.classList.add("view-tab--active");
+            b.setAttribute("aria-selected", "true");
+          } else {
+            b.setAttribute("aria-selected", "false");
+          }
+        });
+
+        lightCursor.style.width = state.lighting.size + "px";
+        lightCursor.style.height = state.lighting.size + "px";
+        updateLightAnchorPosition();
+      }
+
+      function undo() {
+        if (!state.srcImage || state.history.past.length === 0) return;
+        const current = snapshotState();
+        const prev = state.history.past.pop();
+        state.history.future.push(current);
+        state.isRestoringState = true;
+        restoreState(prev);
+        state.isRestoringState = false;
+        state.isDirty = state.history.past.length > 1;
+      }
+
+      function redo() {
+        if (!state.srcImage || state.history.future.length === 0) return;
+        const current = snapshotState();
+        const next = state.history.future.pop();
+        state.history.past.push(current);
+        state.isRestoringState = true;
+        restoreState(next);
+        state.isRestoringState = false;
+        state.isDirty = state.history.past.length > 1;
+      }
+
+      function restoreState(snap) {
+        if (!snap) return;
+        state.params = { ...state.params, ...snap.params };
+        state.lighting = { ...state.lighting, ...snap.lighting };
+        state.viewMode = snap.viewMode;
+        state.zoom = { ...snap.zoom };
+        applyStateToUI();
+        processImage();
+        renderView();
+      }
+
+      function getFitMetrics() {
+        if (!state.srcImage || !canvas.width || !canvas.height) return null;
+
+        const wrapperRect = canvasWrapper.getBoundingClientRect();
+        const padding = 32;
+
+        const rem =
+          parseFloat(getComputedStyle(document.documentElement).fontSize) || 16;
+        const viewToggleReserved = 36 + rem * 2;
+        const zoomControlsReserved = 54 + rem * 2;
+
+        const availableWidth = Math.max(1, wrapperRect.width - padding * 2);
+        const availableHeight = Math.max(
+          1,
+          wrapperRect.height - viewToggleReserved - zoomControlsReserved
+        );
+
+        const regionCenterY = viewToggleReserved + availableHeight / 2;
+        const wrapperCenterY = wrapperRect.height / 2;
+
+        const scaleX = availableWidth / canvas.width;
+        const scaleY = availableHeight / canvas.height;
+
+        return {
+          fitScale: Math.min(scaleX, scaleY),
+          regionCenterY,
+          wrapperCenterY,
+        };
+      }
+
+      function updateZoomFitIcon(metricsParam) {
+        if (!zoomFitIcon) return;
+        const metrics = metricsParam || getFitMetrics();
+
+        if (!metrics) {
+          zoomFitIcon.innerHTML = shrinkIconSVG;
+          zoomFitBtn.title = "Fit to container";
+          return;
+        }
+
+        const mode = metrics.fitScale < 0.999 ? "shrink" : "expand";
+        zoomFitIcon.innerHTML =
+          mode === "shrink" ? shrinkIconSVG : expandIconSVG;
+        zoomFitBtn.title =
+          mode === "shrink"
+            ? "Fit to container (shrink to view)"
+            : "Fit to container (expand to view)";
+      }
+
+      // --- Event Listeners ---
+
+      function openHelpModal() {
+        document.getElementById("helpModal").classList.add("active");
+      }
+
+      function closeHelpModal() {
+        document.getElementById("helpModal").classList.remove("active");
+      }
+
+      document.getElementById("helpModal").addEventListener("click", (e) => {
+        if (e.target.id === "helpModal") {
+          closeHelpModal();
+        }
+      });
+
+      window.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") {
+          closeHelpModal();
+        }
+      });
+
+      document
+        .getElementById("helpButton")
+        .addEventListener("click", openHelpModal);
+
+      fileInput.addEventListener("change", (e) => {
+        const file = e.target.files[0];
+        if (!file) return;
+
+        if (state.isDirty && state.srcImage) {
+          const proceed = confirm(
+            "You have unsaved changes to the current normal map.\n\n" +
+              "Loading a new image will discard these changes.\n\n" +
+              "Continue anyway?"
+          );
+          if (!proceed) {
+            fileInput.value = "";
+            return;
+          }
+        }
+
+        if (!file.type.startsWith("image/")) {
+          alert("Please select a valid image file.");
+          return;
+        }
+
+        const reader = new FileReader();
+        reader.onload = (event) => {
+          const img = new Image();
+          img.onload = () => {
+            initImage(img);
+          };
+          img.onerror = () => {
+            alert("Failed to load image. Please try a different file.");
+          };
+          img.src = event.target.result;
+        };
+        reader.onerror = () => {
+          alert("Failed to read file. Please try again.");
+        };
+        reader.readAsDataURL(file);
+      });
+
+      document.querySelectorAll(".view-toggle").forEach((btn) => {
+        btn.addEventListener("click", (e) => {
+          ensureHistory();
+          document.querySelectorAll(".view-toggle").forEach((b) => {
+            b.classList.remove("view-tab--active");
+            b.setAttribute("aria-selected", "false");
+          });
+          e.target.classList.add("view-tab--active");
+          e.target.setAttribute("aria-selected", "true");
+
+          state.viewMode = e.target.dataset.mode;
+          renderView();
+        });
+      });
+
+      const bindParam = (id, key, type = "float") => {
+        const el = document.getElementById("param-" + id);
+        const valDisplay = document.getElementById("val-" + id);
+
+        el.addEventListener("input", (e) => {
+          ensureHistory();
+          let val =
+            type === "bool" ? e.target.checked : parseFloat(e.target.value);
+          state.params[key] = val;
+          if (valDisplay)
+            valDisplay.innerText =
+              type === "bool" ? "" : val + (id === "bevel" ? "px" : "");
+
+          if (state.srcImage) {
+            processImage();
+          }
+        });
+      };
+
+      bindParam("bevel", "bevel");
+      bindParam("strength", "strength");
+      bindParam("smooth", "smooth");
+      bindParam("detail", "detail");
+      bindParam("invert-x", "invertX", "bool");
+      bindParam("invert-y", "invertY", "bool");
+
+      const bindLightingParam = (id, key, type = "float") => {
+        const el = document.getElementById("param-" + id);
+        const valDisplay = document.getElementById("val-" + id);
+
+        el.addEventListener("input", (e) => {
+          ensureHistory();
+          let val =
+            type === "color" ? e.target.value : parseFloat(e.target.value);
+          state.lighting[key] = val;
+          if (valDisplay) {
+            if (id === "light-size") {
+              valDisplay.innerText = val + "px";
+            } else if (type !== "color") {
+              valDisplay.innerText = val;
+            }
+          }
+
+          if (id === "light-size") {
+            lightCursor.style.width = val + "px";
+            lightCursor.style.height = val + "px";
+          }
+
+          if (state.viewMode === "light" && state.srcImage) {
+            updateLightAnchorPosition();
+          }
+        });
+      };
+
+      bindLightingParam("light-z", "zPosition");
+      bindLightingParam("brightness", "brightness");
+      bindLightingParam("light-size", "size");
+      bindLightingParam("light-color", "lightColor", "color");
+      bindLightingParam("ambient-color", "ambientColor", "color");
+
+      downloadBtn.addEventListener("click", () => {
+        if (!state.normalMapImageData) return;
+
+        const tempCanvas = document.createElement("canvas");
+        tempCanvas.width = canvas.width;
+        tempCanvas.height = canvas.height;
+        const tempCtx = tempCanvas.getContext("2d");
+        tempCtx.putImageData(state.normalMapImageData, 0, 0);
+
+        const originalName = state.originalFilename || "image.png";
+        const baseName = originalName.replace(/\.[^/.]+$/, "");
+        const filename = `${baseName}_normal.png`;
+
+        const link = document.createElement("a");
+        link.download = filename;
+        link.href = tempCanvas.toDataURL();
+        link.click();
+
+        state.isDirty = false;
+      });
+
+      function screenToCanvasCoords(screenX, screenY) {
+        const rect = canvas.getBoundingClientRect();
+        const x = ((screenX - rect.left) / rect.width) * canvas.width;
+        const y = ((screenY - rect.top) / rect.height) * canvas.height;
+        return { x, y };
+      }
+
+      function updateLightAnchorPosition() {
+        lightAnchor.style.left = state.lighting.anchorX + "px";
+        lightAnchor.style.top = state.lighting.anchorY + "px";
+
+        const inverseScale = 1 / state.zoom.scale;
+        lightAnchor.style.transform = `scale(${inverseScale})`;
+
+        lightCursor.style.left = state.lighting.anchorX + "px";
+        lightCursor.style.top = state.lighting.anchorY + "px";
+
+        if (state.viewMode === "light" && state.srcImage) {
+          const rect = canvas.getBoundingClientRect();
+          const screenX =
+            rect.left + (state.lighting.anchorX / canvas.width) * rect.width;
+          const screenY =
+            rect.top + (state.lighting.anchorY / canvas.height) * rect.height;
+          renderLighting(screenX, screenY);
+        }
+      }
+
+      // --- Gesture Handling ---
+      const CLICK_THRESHOLD = 5;
+
+      lightAnchor.addEventListener("mousedown", (e) => {
+        if (state.viewMode !== "light") return;
+        ensureHistory();
+        state.gesture.isDraggingAnchor = true;
+        e.stopPropagation();
+        e.preventDefault();
+      });
+
+      canvasWrapper.addEventListener("mousedown", (e) => {
+        if (e.target.closest("#lightAnchor")) return;
+
+        state.gesture.isMouseDown = true;
+        state.gesture.isPanning = false;
+        state.gesture.startX = e.clientX;
+        state.gesture.startY = e.clientY;
+        state.gesture.initialOffsetX = state.zoom.offsetX;
+        state.gesture.initialOffsetY = state.zoom.offsetY;
+        state.gesture.movedDistance = 0;
+        e.preventDefault();
+      });
+
+      window.addEventListener("mousemove", (e) => {
+        if (state.gesture.isDraggingAnchor) {
+          const coords = screenToCanvasCoords(e.clientX, e.clientY);
+          state.lighting.anchorX = coords.x;
+          state.lighting.anchorY = coords.y;
+          updateLightAnchorPosition();
+          return;
+        }
+
+        if (!state.gesture.isMouseDown) return;
+
+        const dx = e.clientX - state.gesture.startX;
+        const dy = e.clientY - state.gesture.startY;
+        state.gesture.movedDistance = Math.sqrt(dx * dx + dy * dy);
+
+        if (state.gesture.movedDistance > CLICK_THRESHOLD) {
+          state.gesture.isPanning = true;
+          canvasWrapper.classList.add("panning");
+          state.zoom.offsetX = state.gesture.initialOffsetX + dx;
+          state.zoom.offsetY = state.gesture.initialOffsetY + dy;
+          applyZoomTransform();
+        }
+      });
+
+      window.addEventListener("mouseup", (e) => {
+        if (state.gesture.isDraggingAnchor) {
+          state.gesture.isDraggingAnchor = false;
+          return;
+        }
+
+        if (!state.gesture.isMouseDown) return;
+
+        if (
+          !state.gesture.isPanning &&
+          state.gesture.movedDistance <= CLICK_THRESHOLD
+        ) {
+          if (state.viewMode === "light" && state.srcImage) {
+            ensureHistory();
+            const coords = screenToCanvasCoords(e.clientX, e.clientY);
+            state.lighting.anchorX = coords.x;
+            state.lighting.anchorY = coords.y;
+            updateLightAnchorPosition();
+          }
+        }
+
+        state.gesture.isMouseDown = false;
+        state.gesture.isPanning = false;
+        canvasWrapper.classList.remove("panning");
+      });
+
+      // --- Touch Gesture Handling ---
+      let lastTouchDistance = 0;
+      let lastTouchCenter = { x: 0, y: 0 };
+
+      lightAnchor.addEventListener(
+        "touchstart",
+        (e) => {
+          if (state.viewMode !== "light") return;
+          if (e.touches.length === 1) {
+            ensureHistory();
+            state.gesture.isDraggingAnchor = true;
+            e.stopPropagation();
+            e.preventDefault();
+          }
+        },
+        { passive: false }
+      );
+
+      lightAnchor.addEventListener(
+        "touchmove",
+        (e) => {
+          if (state.gesture.isDraggingAnchor && e.touches.length === 1) {
+            const touch = e.touches[0];
+            const coords = screenToCanvasCoords(touch.clientX, touch.clientY);
+            state.lighting.anchorX = coords.x;
+            state.lighting.anchorY = coords.y;
+            updateLightAnchorPosition();
+            e.stopPropagation();
+            e.preventDefault();
+          }
+        },
+        { passive: false }
+      );
+
+      lightAnchor.addEventListener(
+        "touchend",
+        (e) => {
+          state.gesture.isDraggingAnchor = false;
+        },
+        { passive: false }
+      );
+
+      canvasWrapper.addEventListener(
+        "touchstart",
+        (e) => {
+          if (e.target.closest("#lightAnchor")) return;
+
+          if (e.touches.length === 1) {
+            const touch = e.touches[0];
+            state.gesture.isTouching = true;
+            state.gesture.isPanning = false;
+            state.gesture.startX = touch.clientX;
+            state.gesture.startY = touch.clientY;
+            state.gesture.initialOffsetX = state.zoom.offsetX;
+            state.gesture.initialOffsetY = state.zoom.offsetY;
+            state.gesture.movedDistance = 0;
+            state.gesture.touchStartTime = Date.now();
+            e.preventDefault();
+          } else if (e.touches.length === 2) {
+            state.gesture.isTouching = false;
+            state.gesture.isPanning = false;
+            const touch1 = e.touches[0];
+            const touch2 = e.touches[1];
+            lastTouchDistance = Math.hypot(
+              touch2.clientX - touch1.clientX,
+              touch2.clientY - touch1.clientY
+            );
+            lastTouchCenter = {
+              x: (touch1.clientX + touch2.clientX) / 2,
+              y: (touch1.clientY + touch2.clientY) / 2,
+            };
+            e.preventDefault();
+          }
+        },
+        { passive: false }
+      );
+
+      canvasWrapper.addEventListener(
+        "touchmove",
+        (e) => {
+          if (e.touches.length === 1 && state.gesture.isTouching) {
+            const touch = e.touches[0];
+            const dx = touch.clientX - state.gesture.startX;
+            const dy = touch.clientY - state.gesture.startY;
+            state.gesture.movedDistance = Math.sqrt(dx * dx + dy * dy);
+
+            if (state.gesture.movedDistance > CLICK_THRESHOLD) {
+              state.gesture.isPanning = true;
+              canvasWrapper.classList.add("panning");
+              state.zoom.offsetX = state.gesture.initialOffsetX + dx;
+              state.zoom.offsetY = state.gesture.initialOffsetY + dy;
+              applyZoomTransform();
+            }
+            e.preventDefault();
+          } else if (e.touches.length === 2) {
+            const touch1 = e.touches[0];
+            const touch2 = e.touches[1];
+            const currentDistance = Math.hypot(
+              touch2.clientX - touch1.clientX,
+              touch2.clientY - touch1.clientY
+            );
+            const currentCenter = {
+              x: (touch1.clientX + touch2.clientX) / 2,
+              y: (touch1.clientY + touch2.clientY) / 2,
+            };
+
+            if (lastTouchDistance > 0) {
+              const zoomDelta = currentDistance / lastTouchDistance;
+              const newScale = Math.max(
+                0.1,
+                Math.min(5, state.zoom.scale * zoomDelta)
+              );
+
+              const wrapperRect = canvasWrapper.getBoundingClientRect();
+              const wrapperCenterX = wrapperRect.left + wrapperRect.width / 2;
+              const wrapperCenterY = wrapperRect.top + wrapperRect.height / 2;
+
+              const pinchFromCenterX = currentCenter.x - wrapperCenterX;
+              const pinchFromCenterY = currentCenter.y - wrapperCenterY;
+
+              const scaleFactor = newScale / state.zoom.scale;
+              state.zoom.offsetX +=
+                (1 - scaleFactor) * (pinchFromCenterX - state.zoom.offsetX);
+              state.zoom.offsetY +=
+                (1 - scaleFactor) * (pinchFromCenterY - state.zoom.offsetY);
+
+              state.zoom.scale = newScale;
+              zoomSlider.value = newScale * 100;
+              zoomDisplay.textContent = Math.round(newScale * 100) + "%";
+              applyZoomTransform();
+            }
+
+            lastTouchDistance = currentDistance;
+            lastTouchCenter = currentCenter;
+            e.preventDefault();
+          }
+        },
+        { passive: false }
+      );
+
+      canvasWrapper.addEventListener(
+        "touchend",
+        (e) => {
+          if (e.touches.length === 0) {
+            if (
+              state.gesture.isTouching &&
+              !state.gesture.isPanning &&
+              state.gesture.movedDistance <= CLICK_THRESHOLD
+            ) {
+              if (state.viewMode === "light" && state.srcImage) {
+                const coords = screenToCanvasCoords(
+                  state.gesture.startX,
+                  state.gesture.startY
+                );
+                ensureHistory();
+                state.lighting.anchorX = coords.x;
+                state.lighting.anchorY = coords.y;
+                updateLightAnchorPosition();
+              }
+            }
+            state.gesture.isTouching = false;
+            state.gesture.isPanning = false;
+            canvasWrapper.classList.remove("panning");
+            lastTouchDistance = 0;
+          } else if (e.touches.length === 1) {
+            lastTouchDistance = 0;
+          }
+        },
+        { passive: false }
+      );
+
+      // --- Mouse Wheel: Pan by default, Zoom with Cmd/Ctrl ---
+      canvasWrapper.addEventListener(
+        "wheel",
+        (e) => {
+          if (!state.srcImage) return;
+          e.preventDefault();
+
+          if (e.metaKey || e.ctrlKey) {
+            const mouseX = e.clientX;
+            const mouseY = e.clientY;
+
+            const zoomDelta = e.deltaY > 0 ? 0.9 : 1.1;
+            const newScale = Math.max(
+              0.1,
+              Math.min(5, state.zoom.scale * zoomDelta)
+            );
+
+            const wrapperRect = canvasWrapper.getBoundingClientRect();
+            const wrapperCenterX = wrapperRect.left + wrapperRect.width / 2;
+            const wrapperCenterY = wrapperRect.top + wrapperRect.height / 2;
+
+            const mouseFromCenterX = mouseX - wrapperCenterX;
+            const mouseFromCenterY = mouseY - wrapperCenterY;
+
+            const scaleFactor = newScale / state.zoom.scale;
+            state.zoom.offsetX +=
+              (1 - scaleFactor) * (mouseFromCenterX - state.zoom.offsetX);
+            state.zoom.offsetY +=
+              (1 - scaleFactor) * (mouseFromCenterY - state.zoom.offsetY);
+
+            state.zoom.scale = newScale;
+            zoomSlider.value = newScale * 100;
+            zoomDisplay.textContent = Math.round(newScale * 100) + "%";
+            applyZoomTransform();
+          } else {
+            state.zoom.offsetX -= e.deltaX;
+            state.zoom.offsetY -= e.deltaY;
+            applyZoomTransform();
+          }
+        },
+        { passive: false }
+      );
+
+      zoomSlider.addEventListener("input", (e) => {
+        ensureHistory();
+        const newScale = parseFloat(e.target.value) / 100;
+        state.zoom.scale = newScale;
+        zoomDisplay.textContent = Math.round(newScale * 100) + "%";
+        applyZoomTransform();
+      });
+
+      zoomFitBtn.addEventListener("click", () => {
+        if (!state.srcImage) return;
+        ensureHistory();
+        const metrics = getFitMetrics();
+        if (!metrics) return;
+
+        state.zoom.scale = metrics.fitScale;
+        state.zoom.offsetX = 0;
+        state.zoom.offsetY = metrics.regionCenterY - metrics.wrapperCenterY;
+        zoomSlider.value = state.zoom.scale * 100;
+        zoomDisplay.textContent = Math.round(state.zoom.scale * 100) + "%";
+        applyZoomTransform();
+        updateZoomFitIcon(metrics);
+      });
+
+      zoom100Btn.addEventListener("click", () => {
+        ensureHistory();
+        state.zoom.scale = 1;
+        state.zoom.offsetX = 0;
+        state.zoom.offsetY = 0;
+        zoomSlider.value = 100;
+        zoomDisplay.textContent = "100%";
+        applyZoomTransform();
+      });
+
+      window.addEventListener("keydown", (e) => {
+        const key = e.key.toLowerCase();
+        const isMeta = e.metaKey || e.ctrlKey;
+        const isUndo = isMeta && !e.shiftKey && key === "z";
+        const isRedo = isMeta && ((e.shiftKey && key === "z") || key === "y");
+        if (isUndo) {
+          e.preventDefault();
+          undo();
+        } else if (isRedo) {
+          e.preventDefault();
+          redo();
+        }
+      });
+
+      window.addEventListener("beforeunload", (e) => {
+        if (state.isDirty && state.srcImage) {
+          e.preventDefault();
+          e.returnValue = "";
+        }
+      });
+
+      window.addEventListener("resize", updateZoomFitIcon);
+
+      // --- Core Logic ---
+
+      function applyZoomTransform() {
+        canvasInner.style.transform = `translate(${state.zoom.offsetX}px, ${state.zoom.offsetY}px) scale(${state.zoom.scale})`;
+
+        if (state.viewMode === "light" && state.srcImage) {
+          updateLightAnchorPosition();
+        }
+      }
+
+      function initImage(img) {
+        const maxDimension = 2048;
+        const totalPixels = img.width * img.height;
+
+        if (img.width > maxDimension || img.height > maxDimension) {
+          const proceed = confirm(
+            `Warning: This image is ${img.width}×${img.height}px which may cause slow performance.\n\n` +
+              `Recommended maximum: ${maxDimension}×${maxDimension}px\n\n` +
+              `Continue anyway?`
+          );
+          if (!proceed) return;
+        } else if (totalPixels > 1000000) {
+          console.warn(
+            `Large image detected: ${img.width}×${img.height}px. Processing may be slow.`
+          );
+        }
+
+        state.srcImage = img;
+        canvas.width = img.width;
+        canvas.height = img.height;
+
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.drawImage(img, 0, 0);
+        state.originalImageData = ctx.getImageData(
+          0,
+          0,
+          canvas.width,
+          canvas.height
+        );
+
+        emptyState.classList.add("hidden");
+        canvasInner.classList.remove("hidden");
+        downloadBtn.disabled = false;
+        zoomControls.classList.add("active");
+
+        state.zoom.scale = 1;
+        state.zoom.offsetX = 0;
+        state.zoom.offsetY = 0;
+        zoomSlider.value = 100;
+        zoomDisplay.textContent = "100%";
+        applyZoomTransform();
+        updateZoomFitIcon();
+
+        state.lighting.anchorX = canvas.width / 2;
+        state.lighting.anchorY = canvas.height / 2;
+
+        setTimeout(() => {
+          zoomFitBtn.click();
+        }, 100);
+
+        state.originalFilename = fileInput.files[0]?.name || "image.png";
+
+        processImage();
+        resetHistory();
+      }
+
+      function processImage() {
+        if (!state.srcImage) return;
+
+        const width = canvas.width;
+        const height = canvas.height;
+        const pixels = state.originalImageData.data;
+        const len = width * height;
+
+        const opaque = new Float32Array(len);
+        const luminance = new Float32Array(len);
+
+        for (let i = 0; i < len; i++) {
+          const a = pixels[i * 4 + 3];
+          const r = pixels[i * 4];
+          const g = pixels[i * 4 + 1];
+          const b = pixels[i * 4 + 2];
+
+          opaque[i] = a > 10 ? 1 : 0;
+          luminance[i] = (r * 0.299 + g * 0.587 + b * 0.114) / 255.0;
+        }
+
+        const dist = new Float32Array(len);
+        const INF = 99999;
+
+        for (let i = 0; i < len; i++) {
+          dist[i] = opaque[i] ? INF : 0;
+        }
+
+        for (let y = 0; y < height; y++) {
+          for (let x = 0; x < width; x++) {
+            const idx = y * width + x;
+            if (dist[idx] > 0) {
+              const left = x > 0 ? dist[idx - 1] : INF;
+              const top = y > 0 ? dist[idx - width] : INF;
+              dist[idx] = Math.min(dist[idx], Math.min(left, top) + 1);
+            }
+          }
+        }
+
+        for (let y = height - 1; y >= 0; y--) {
+          for (let x = width - 1; x >= 0; x--) {
+            const idx = y * width + x;
+            if (dist[idx] > 0) {
+              const right = x < width - 1 ? dist[idx + 1] : INF;
+              const bottom = y < height - 1 ? dist[idx + width] : INF;
+              dist[idx] = Math.min(dist[idx], Math.min(right, bottom) + 1);
+            }
+          }
+        }
+
+        const finalHeight = new Float32Array(len);
+        const maxBevel = state.params.bevel;
+        const detailWeight = state.params.detail;
+
+        for (let i = 0; i < len; i++) {
+          if (pixels[i * 4 + 3] < 10) {
+            finalHeight[i] = 0;
+            continue;
+          }
+
+          let d = dist[i];
+          if (d > maxBevel && maxBevel > 0) d = maxBevel;
+
+          let normDist = maxBevel > 0 ? d / maxBevel : 1;
+
+          finalHeight[i] = normDist + luminance[i] * detailWeight;
+        }
+
+        let smoothedHeight = finalHeight;
+        if (state.params.smooth > 0) {
+          smoothedHeight = applyBlur(
+            finalHeight,
+            width,
+            height,
+            state.params.smooth
+          );
+        }
+
+        const normalData = new Uint8ClampedArray(len * 4);
+        const strength = state.params.strength;
+        const invX = state.params.invertX ? -1 : 1;
+        const invY = state.params.invertY ? -1 : 1;
+
+        for (let y = 0; y < height; y++) {
+          for (let x = 0; x < width; x++) {
+            const idx = (y * width + x) * 4;
+            const hIdx = y * width + x;
+
+            if (pixels[idx + 3] < 10) {
+              normalData[idx] = 128;
+              normalData[idx + 1] = 128;
+              normalData[idx + 2] = 255;
+              normalData[idx + 3] = 0;
+              continue;
+            }
+
+            const x0 = x > 0 ? x - 1 : x;
+            const x1 = x < width - 1 ? x + 1 : x;
+            const y0 = y > 0 ? y - 1 : y;
+            const y1 = y < height - 1 ? y + 1 : y;
+
+            const h_l = smoothedHeight[y * width + x0];
+            const h_r = smoothedHeight[y * width + x1];
+            const h_t = smoothedHeight[y0 * width + x];
+            const h_b = smoothedHeight[y1 * width + x];
+
+            const dx = (h_l - h_r) * strength * invX;
+            const dy = (h_t - h_b) * strength * invY;
+            const dz = 1.0;
+
+            const mag = Math.sqrt(dx * dx + dy * dy + dz * dz);
+            const nx = mag > 0 ? dx / mag : 0;
+            const ny = mag > 0 ? dy / mag : 0;
+            const nz = mag > 0 ? dz / mag : 1;
+
+            normalData[idx] = (nx + 1) * 0.5 * 255;
+            normalData[idx + 1] = (ny + 1) * 0.5 * 255;
+            normalData[idx + 2] = (nz + 1) * 0.5 * 255;
+            normalData[idx + 3] = 255;
+          }
+        }
+
+        state.normalMapImageData = new ImageData(normalData, width, height);
+        renderView();
+      }
+
+      function applyBlur(data, width, height, radius) {
+        if (radius === 0) return data;
+        const len = width * height;
+        const r = Math.floor(radius);
+
+        const temp = new Float32Array(len);
+        const result = new Float32Array(len);
+
+        for (let y = 0; y < height; y++) {
+          for (let x = 0; x < width; x++) {
+            let sum = 0;
+            let count = 0;
+
+            for (let kx = -r; kx <= r; kx++) {
+              const nx = x + kx;
+              if (nx >= 0 && nx < width) {
+                sum += data[y * width + nx];
+                count++;
+              }
+            }
+            temp[y * width + x] = sum / count;
+          }
+        }
+
+        for (let y = 0; y < height; y++) {
+          for (let x = 0; x < width; x++) {
+            let sum = 0;
+            let count = 0;
+
+            for (let ky = -r; ky <= r; ky++) {
+              const ny = y + ky;
+              if (ny >= 0 && ny < height) {
+                sum += temp[ny * width + x];
+                count++;
+              }
+            }
+            result[y * width + x] = sum / count;
+          }
+        }
+
+        return result;
+      }
+
+      function renderView() {
+        if (!state.srcImage) return;
+
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        if (state.viewMode === "original") {
+          ctx.putImageData(state.originalImageData, 0, 0);
+          lightCursor.classList.add("hidden");
+          lightAnchor.classList.add("hidden");
+          canvas.style.filter = "none";
+        } else if (state.viewMode === "normal") {
+          if (state.normalMapImageData) {
+            ctx.putImageData(state.normalMapImageData, 0, 0);
+          }
+          lightCursor.classList.add("hidden");
+          lightAnchor.classList.add("hidden");
+          canvas.style.filter = "none";
+        } else if (state.viewMode === "light") {
+          lightCursor.classList.remove("hidden");
+          lightAnchor.classList.remove("hidden");
+
+          if (state.lighting.anchorX === 0 && state.lighting.anchorY === 0) {
+            state.lighting.anchorX = canvas.width / 2;
+            state.lighting.anchorY = canvas.height / 2;
+          }
+
+          updateLightAnchorPosition();
+        }
+      }
+
+      function hexToRgb(hex) {
+        const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+        return result
+          ? {
+              r: parseInt(result[1], 16) / 255,
+              g: parseInt(result[2], 16) / 255,
+              b: parseInt(result[3], 16) / 255,
+            }
+          : { r: 1, g: 1, b: 1 };
+      }
+
+      function renderLighting(mouseX, mouseY) {
+        if (!state.normalMapImageData || !state.originalImageData) return;
+
+        const rect = canvas.getBoundingClientRect();
+
+        const screenX = mouseX - rect.left;
+        const screenY = mouseY - rect.top;
+        const localX = (screenX * canvas.width) / rect.width;
+        const localY = (screenY * canvas.height) / rect.height;
+        lightCursor.style.left = localX + "px";
+        lightCursor.style.top = localY + "px";
+
+        const scaleX = canvas.width / rect.width;
+        const scaleY = canvas.height / rect.height;
+
+        const lx = (mouseX - rect.left) * scaleX;
+        const ly = (mouseY - rect.top) * scaleY;
+        const lz = state.lighting.zPosition;
+
+        const lightColor = hexToRgb(state.lighting.lightColor);
+        const ambientColor = hexToRgb(state.lighting.ambientColor);
+        const brightness = state.lighting.brightness;
+
+        const width = canvas.width;
+        const height = canvas.height;
+        const normals = state.normalMapImageData.data;
+        const colors = state.originalImageData.data;
+        const output = ctx.createImageData(width, height);
+        const outData = output.data;
+
+        const lightSize = state.lighting.size;
+
+        for (let y = 0; y < height; y++) {
+          for (let x = 0; x < width; x++) {
+            const idx = (y * width + x) * 4;
+
+            if (colors[idx + 3] === 0) continue;
+
+            const nx = (normals[idx] / 255.0) * 2 - 1;
+            const ny = (normals[idx + 1] / 255.0) * 2 - 1;
+            const nz = (normals[idx + 2] / 255.0) * 2 - 1;
+
+            const dist_x = lx - x;
+            const dist_y = ly - y;
+
+            const len = Math.sqrt(dist_x * dist_x + dist_y * dist_y + lz * lz);
+            const l_x = dist_x / len;
+            const l_y = dist_y / len;
+            const l_z = lz / len;
+
+            const distance2D = Math.sqrt(dist_x * dist_x + dist_y * dist_y);
+
+            const normalizedDist = distance2D / lightSize;
+            const attenuation = 1.0 / (1.0 + normalizedDist * normalizedDist);
+
+            let dot = nx * l_x + ny * l_y + nz * l_z;
+            if (dot < 0) dot = 0;
+
+            const diffuse = dot * brightness * attenuation;
+
+            const r = colors[idx] / 255;
+            const g = colors[idx + 1] / 255;
+            const b = colors[idx + 2] / 255;
+
+            const ambientR = r * ambientColor.r;
+            const ambientG = g * ambientColor.g;
+            const ambientB = b * ambientColor.b;
+
+            const diffuseR = r * lightColor.r * diffuse;
+            const diffuseG = g * lightColor.g * diffuse;
+            const diffuseB = b * lightColor.b * diffuse;
+
+            outData[idx] = Math.min(255, (ambientR + diffuseR) * 255);
+            outData[idx + 1] = Math.min(255, (ambientG + diffuseG) * 255);
+            outData[idx + 2] = Math.min(255, (ambientB + diffuseB) * 255);
+            outData[idx + 3] = colors[idx + 3];
+          }
+        }
+
+        ctx.putImageData(output, 0, 0);
+      }
+    </script>
+  </body>
+</html>

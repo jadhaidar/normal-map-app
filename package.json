@@ -1,0 +1,39 @@
+{
+  "name": "normal-map-app",
+  "description": "Normal Map Generator - Create Normal Maps Online for Free!",
+  "author": "Jad Haidar",
+  "version": "1.0.0",
+  "license": "MIT",
+  "homepage": "https://normalmap.app",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jadhaidar/normal-map-app.git"
+  },
+  "bugs": {
+    "url": "https://github.com/jadhaidar/normal-map-app/issues"
+  },
+  "scripts": {
+    "dev": "npm run build && npx serve public",
+    "dev:watch": "npx nodemon --watch src --exec 'node build.js'",
+    "build": "node build.js",
+    "preview": "npx serve public"
+  },
+  "keywords": [
+    "normal-map",
+    "pixel-art",
+    "game-development",
+    "2d-lighting",
+    "texture-editor",
+    "webgl",
+    "phaser",
+    "unity",
+    "gamedev"
+  ],
+  "engines": {
+    "node": ">=24 <25",
+    "npm": ">=10 <11"
+  },
+  "devDependencies": {
+    "html-minifier-terser": "^7.2.0"
+  }
+}

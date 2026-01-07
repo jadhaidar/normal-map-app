@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.0.2](https://github.com/jadhaidar/normal-map-app/compare/normal-map-app-v1.0.1...normal-map-app-v1.0.2) (2026-01-07)
+
+
+### Bug Fixes
+
+* Increase contrast ratio between control__hint and sidebar for improved accessibility ([b9cd9ed](https://github.com/jadhaidar/normal-map-app/commit/b9cd9ed9eb1b90d78428ec8538351abd3224a168))
+* update aria-controls attributes for accessibility improvements ([56546a8](https://github.com/jadhaidar/normal-map-app/commit/56546a8982650b93bdf770a11288cc38f0748596))
+
 ## [1.0.1](https://github.com/jadhaidar/normal-map-app/compare/normal-map-app-v1.0.0...normal-map-app-v1.0.1) (2026-01-07)
 
 

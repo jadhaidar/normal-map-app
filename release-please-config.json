@@ -1,0 +1,9 @@
+{
+  "changelog-path": "CHANGELOG.md",
+  "packages": {
+    ".": {
+      "release-type": "node",
+      "package-name": "normal-map-app"
+    }
+  }
+}
